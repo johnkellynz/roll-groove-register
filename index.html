@@ -551,7 +551,7 @@ td .photo-thumb { width: 48px; height: 48px; }
             <input type="number" id="spoolLength" placeholder="Length" min="0" step="any" style="flex:1;min-width:0;">
             <select id="spoolUnit" onchange="onSpoolUnitChange()" style="width:76px;flex-shrink:0;">
               <option value="">Unit</option>
-              <option value="mm">mm</option>
+              <option value="mm" selected>mm</option>
               <option value="mtr">mtr</option>
               <option value="in">in</option>
               <option value="ft">ft</option>
@@ -688,7 +688,7 @@ td .photo-thumb { width: 48px; height: 48px; }
 var entries = [];
 var counter = 0;
 var sel = { aDim: null, cDim: null, flare: null, notesChk: null };
-var sessionSpoolUnit = '';
+var sessionSpoolUnit = 'mm';
 var pendingPhotos = [];
 
 // Auto-fill date
@@ -699,6 +699,12 @@ var pendingPhotos = [];
   var today = d.getFullYear()+'-'+mm+'-'+dd;
   document.getElementById('sessionDate').value = today;
   document.getElementById('sessionDate').max = today;
+})();
+
+// Default spool unit to mm on load
+(function() {
+  document.getElementById('spoolUnit').value = 'mm';
+  onSpoolUnitChange();
 })();
 
 // Spool unit must be selected — no default
@@ -746,7 +752,7 @@ function onSpoolUnitChange() {
 
 function resetSpoolUnit() {
   sessionSpoolUnit = '';
-  document.getElementById('spoolUnit').value = '';
+  document.getElementById('spoolUnit').value = 'mm';
   document.getElementById('spoolUnit').style.display = 'block';
   document.getElementById('spoolUnitBadge').style.display = 'none';
 }
@@ -879,9 +885,9 @@ function resetForm() {
   document.getElementById('pipeSize').value = '';
   document.getElementById('pipeSizeOther').value = '';
   document.getElementById('pipeSizeOther').style.display = 'none';
-  // Clear spool unit
-  sessionSpoolUnit = '';
-  document.getElementById('spoolUnit').value = '';
+  // Reset spool unit to default (mm)
+  sessionSpoolUnit = 'mm';
+  document.getElementById('spoolUnit').value = 'mm';
   document.getElementById('spoolUnit').style.display = 'block';
   document.getElementById('spoolUnitBadge').style.display = 'none';
   // Clear session information
