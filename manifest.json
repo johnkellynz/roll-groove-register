@@ -1,7 +1,7 @@
 {
-  "name": "Groove Inspection Record",
-  "short_name": "Groove Inspection Record",
-  "description": "Victaulic roll groove inspection record tool",
+  "name": "Roll Groove Register",
+  "short_name": "Roll Groove Register",
+  "description": "Victaulic Roll Groove Register tool",
   "start_url": "/victaulic-groove-inspector/",
   "scope": "/victaulic-groove-inspector/",
   "display": "standalone",
