@@ -53,8 +53,8 @@ header {
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   border-bottom: 3px solid var(--vic-orange, #f46523);
 }
-.header-left { display: flex; align-items: center; }
-.header-logo { height: 44px; width: auto; margin-right: 12px; flex-shrink: 0; }
+.header-logo-bar { text-align: center; padding: 10px 16px 0; }
+.header-logo { height: 44px; width: auto; }
 @media (max-width: 480px) { .header-logo { height: 36px; } }
 .header-inner {
   max-width: 960px;
@@ -393,13 +393,13 @@ td .photo-thumb { width: 48px; height: 48px; }
 <body>
 
 <header>
+<div class="header-logo-bar">
+  <img src="Secondary Logo Victaulic Reverse.png" alt="Victaulic" class="header-logo">
+</div>
 <div class="header-inner">
-  <div class="header-left">
-    <img src="Secondary Logo Victaulic Reverse.png" alt="Victaulic" class="header-logo">
-    <div class="header-text">
-      <h1>Roll Groove Register</h1>
-      <p>Victaulic Roll Groove Register</p>
-    </div>
+  <div class="header-text">
+    <h1>Roll Groove Register</h1>
+    <p>Victaulic Roll Groove Register</p>
   </div>
   <div class="hamburger-wrap">
     <button class="hamburger-btn" onclick="toggleHamburger()" aria-label="Menu">
