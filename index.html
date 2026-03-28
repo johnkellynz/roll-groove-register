@@ -1374,7 +1374,7 @@ function buildPDF() {
 
   var c1 = margin + 5, c2 = margin + contentW / 2 + 5;
   function infoCell(label, value, x, cy) {
-    doc.setFontSize(7); doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10); doc.setFont('helvetica', 'bold');
     doc.setTextColor.apply(doc, orange);
     doc.text(label.toUpperCase(), x, cy);
     doc.setFontSize(9.5); doc.setFont('helvetica', 'bold');
@@ -1447,12 +1447,12 @@ function buildPDF() {
       fillColor: navy,
       textColor: white,
       fontStyle: 'bold',
-      fontSize: 7,
+      fontSize: 8,
       halign: 'center',
       cellPadding: { top: 3, bottom: 3, left: 3, right: 3 }
     },
     bodyStyles: {
-      fontSize: 7,
+      fontSize: 8,
       cellPadding: { top: 2.5, bottom: 2.5, left: 3, right: 3 },
       textColor: navy
     },
