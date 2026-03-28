@@ -16,7 +16,7 @@
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/victaulic-groove-inspector/sw.js', { scope: '/victaulic-groove-inspector/' })
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
       .then(function(reg) {
         // Check for updates every time the page loads
         reg.update();
