@@ -54,7 +54,7 @@ header {
   border-bottom: 3px solid var(--vic-orange, #f46523);
 }
 
-.header-left { display: flex; align-items: center; }
+.header-right { display: flex; align-items: center; gap: 12px; }
 .header-logo { height: 36px; width: auto; margin-right: 10px; flex-shrink: 0; }
 @media (max-width: 480px) { .header-logo { height: 30px; } }
 .header-inner {
@@ -396,14 +396,13 @@ td .photo-thumb { width: 48px; height: 48px; }
 
 <header>
 <div class="header-inner">
-  <div class="header-left">
-    <img src="Secondary Logo Victaulic Reverse.png" alt="Victaulic" class="header-logo">
-    <div class="header-text">
-      <h1>Roll Groove Register</h1>
-      <p>Victaulic Roll Groove Q.A. Register</p>
-    </div>
+  <div class="header-text">
+    <h1>Roll Groove Register</h1>
+    <p>Victaulic Roll Groove Q.A. Register</p>
   </div>
-  <div class="hamburger-wrap">
+  <div class="header-right">
+    <img src="Secondary Logo Victaulic Reverse.png" alt="Victaulic" class="header-logo">
+    <div class="hamburger-wrap">
     <button class="hamburger-btn" onclick="toggleHamburger()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -413,6 +412,7 @@ td .photo-thumb { width: 48px; height: 48px; }
       <a href="https://www.victaulic.com/" target="_blank">&#127760; Victaulic Website</a>
       <a href="#" onclick="shareApp(); return false;">&#128279; Share This App</a>
     </div>
+  </div>
   </div>
 </div>
 </header>
