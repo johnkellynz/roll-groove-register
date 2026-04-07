@@ -229,6 +229,7 @@ header {
   transition: all 0.15s;
   min-height: 44px;
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 .pf-btn:hover { border-color: #aab; }
 .pf-btn.pass-active { background: var(--pass-bg); border-color: var(--pass-color); color: var(--pass-color); }
@@ -613,54 +614,66 @@ td .photo-thumb { width: 48px; height: 48px; }
     <div style="margin-top:6px;">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
         <!-- Groove 1 -->
-        <div style="border:1.5px solid var(--border);border-radius:8px;padding:10px;">
-          <div style="font-weight:700;font-size:0.85rem;margin-bottom:8px;color:var(--vic-orange);">Groove 1</div>
-          <div class="pf-row">
-            <span class="pf-label">A Dimension</span>
-            <div class="pf-btns">
-              <button class="pf-btn" id="g1aDimPass" onclick="setPF('g1aDim','pass')">&#10003; PASS</button>
-              <button class="pf-btn" id="g1aDimFail" onclick="setPF('g1aDim','fail')">&#10007; FAIL</button>
+        <div id="g1Panel" style="border:1.5px solid var(--border);border-radius:8px;padding:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-weight:700;font-size:0.85rem;color:var(--vic-orange);">Groove 1</span>
+            <button type="button" id="g1PlainEndBtn" onclick="togglePlainEnd('g1')" style="border:2px solid var(--border);background:#fff;color:#666;border-radius:7px;font-size:0.72rem;font-weight:700;cursor:pointer;padding:4px 10px;">Plain End</button>
+          </div>
+          <div id="g1PfRows">
+            <div class="pf-row">
+              <span class="pf-label">A Dimension</span>
+              <div class="pf-btns">
+                <button class="pf-btn" id="g1aDimPass" onclick="setPF('g1aDim','pass')">&#10003; PASS</button>
+                <button class="pf-btn" id="g1aDimFail" onclick="setPF('g1aDim','fail')">&#10007; FAIL</button>
+              </div>
+            </div>
+            <div class="pf-row">
+              <span class="pf-label">C Dimension</span>
+              <div class="pf-btns">
+                <button class="pf-btn" id="g1cDimPass" onclick="setPF('g1cDim','pass')">&#10003; PASS</button>
+                <button class="pf-btn" id="g1cDimFail" onclick="setPF('g1cDim','fail')">&#10007; FAIL</button>
+              </div>
+            </div>
+            <div class="pf-row">
+              <span class="pf-label">Flare Measurement</span>
+              <div class="pf-btns">
+                <button class="pf-btn" id="g1flarePass" onclick="setPF('g1flare','pass')">&#10003; PASS</button>
+                <button class="pf-btn" id="g1flareFail" onclick="setPF('g1flare','fail')">&#10007; FAIL</button>
+              </div>
             </div>
           </div>
-          <div class="pf-row">
-            <span class="pf-label">C Dimension</span>
-            <div class="pf-btns">
-              <button class="pf-btn" id="g1cDimPass" onclick="setPF('g1cDim','pass')">&#10003; PASS</button>
-              <button class="pf-btn" id="g1cDimFail" onclick="setPF('g1cDim','fail')">&#10007; FAIL</button>
-            </div>
-          </div>
-          <div class="pf-row">
-            <span class="pf-label">Flare Measurement</span>
-            <div class="pf-btns">
-              <button class="pf-btn" id="g1flarePass" onclick="setPF('g1flare','pass')">&#10003; PASS</button>
-              <button class="pf-btn" id="g1flareFail" onclick="setPF('g1flare','fail')">&#10007; FAIL</button>
-            </div>
-          </div>
+          <div id="g1PlainEndLabel" style="display:none;text-align:center;padding:18px 0;color:#aaa;font-weight:600;font-size:0.85rem;">Plain End — No Groove Required</div>
         </div>
         <!-- Groove 2 -->
-        <div style="border:1.5px solid var(--border);border-radius:8px;padding:10px;">
-          <div style="font-weight:700;font-size:0.85rem;margin-bottom:8px;color:var(--vic-orange);">Groove 2</div>
-          <div class="pf-row">
-            <span class="pf-label">A Dimension</span>
-            <div class="pf-btns">
-              <button class="pf-btn" id="g2aDimPass" onclick="setPF('g2aDim','pass')">&#10003; PASS</button>
-              <button class="pf-btn" id="g2aDimFail" onclick="setPF('g2aDim','fail')">&#10007; FAIL</button>
+        <div id="g2Panel" style="border:1.5px solid var(--border);border-radius:8px;padding:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span style="font-weight:700;font-size:0.85rem;color:var(--vic-orange);">Groove 2</span>
+            <button type="button" id="g2PlainEndBtn" onclick="togglePlainEnd('g2')" style="border:2px solid var(--border);background:#fff;color:#666;border-radius:7px;font-size:0.72rem;font-weight:700;cursor:pointer;padding:4px 10px;">Plain End</button>
+          </div>
+          <div id="g2PfRows">
+            <div class="pf-row">
+              <span class="pf-label">A Dimension</span>
+              <div class="pf-btns">
+                <button class="pf-btn" id="g2aDimPass" onclick="setPF('g2aDim','pass')">&#10003; PASS</button>
+                <button class="pf-btn" id="g2aDimFail" onclick="setPF('g2aDim','fail')">&#10007; FAIL</button>
+              </div>
+            </div>
+            <div class="pf-row">
+              <span class="pf-label">C Dimension</span>
+              <div class="pf-btns">
+                <button class="pf-btn" id="g2cDimPass" onclick="setPF('g2cDim','pass')">&#10003; PASS</button>
+                <button class="pf-btn" id="g2cDimFail" onclick="setPF('g2cDim','fail')">&#10007; FAIL</button>
+              </div>
+            </div>
+            <div class="pf-row">
+              <span class="pf-label">Flare Measurement</span>
+              <div class="pf-btns">
+                <button class="pf-btn" id="g2flarePass" onclick="setPF('g2flare','pass')">&#10003; PASS</button>
+                <button class="pf-btn" id="g2flareFail" onclick="setPF('g2flare','fail')">&#10007; FAIL</button>
+              </div>
             </div>
           </div>
-          <div class="pf-row">
-            <span class="pf-label">C Dimension</span>
-            <div class="pf-btns">
-              <button class="pf-btn" id="g2cDimPass" onclick="setPF('g2cDim','pass')">&#10003; PASS</button>
-              <button class="pf-btn" id="g2cDimFail" onclick="setPF('g2cDim','fail')">&#10007; FAIL</button>
-            </div>
-          </div>
-          <div class="pf-row">
-            <span class="pf-label">Flare Measurement</span>
-            <div class="pf-btns">
-              <button class="pf-btn" id="g2flarePass" onclick="setPF('g2flare','pass')">&#10003; PASS</button>
-              <button class="pf-btn" id="g2flareFail" onclick="setPF('g2flare','fail')">&#10007; FAIL</button>
-            </div>
-          </div>
+          <div id="g2PlainEndLabel" style="display:none;text-align:center;padding:18px 0;color:#aaa;font-weight:600;font-size:0.85rem;">Plain End — No Groove Required</div>
         </div>
       </div>
 
@@ -802,6 +815,39 @@ var pendingPhotos = [];
   } catch(e) { addEmailField(''); }
 })();
 
+var plainEnd = { g1: false, g2: false };
+
+function pfOk(v) { return v === 'pass' || v === 'plain_end'; }
+
+function togglePlainEnd(g) {
+  plainEnd[g] = !plainEnd[g];
+  var btn = document.getElementById(g + 'PlainEndBtn');
+  var rows = document.getElementById(g + 'PfRows');
+  var label = document.getElementById(g + 'PlainEndLabel');
+  if (plainEnd[g]) {
+    btn.style.background = 'var(--vic-orange)';
+    btn.style.color = '#fff';
+    btn.style.borderColor = 'var(--vic-orange)';
+    rows.style.display = 'none';
+    label.style.display = 'block';
+    sel[g + 'aDim'] = 'plain_end';
+    sel[g + 'cDim'] = 'plain_end';
+    sel[g + 'flare'] = 'plain_end';
+  } else {
+    btn.style.background = '#fff';
+    btn.style.color = '#666';
+    btn.style.borderColor = 'var(--border)';
+    rows.style.display = 'block';
+    label.style.display = 'none';
+    sel[g + 'aDim'] = null;
+    sel[g + 'cDim'] = null;
+    sel[g + 'flare'] = null;
+    [g + 'aDimPass', g + 'aDimFail', g + 'cDimPass', g + 'cDimFail', g + 'flarePass', g + 'flareFail'].forEach(function(id) {
+      document.getElementById(id).className = 'pf-btn';
+    });
+  }
+}
+
 function setSpoolNA() {
   var inp = document.getElementById('spoolNumber');
   var btn = document.getElementById('spoolNABtn');
@@ -922,7 +968,7 @@ function addEntry() {
   var notes = document.getElementById('notesInput').value.trim();
   if (notes && !sel.notesChk) { alert('You have notes — please set Observation Result pass/fail.'); return; }
 
-  var ov = (sel.g1aDim==='pass' && sel.g1cDim==='pass' && sel.g1flare==='pass' && sel.g2aDim==='pass' && sel.g2cDim==='pass' && sel.g2flare==='pass') ? 'PASS' : 'FAIL';
+  var ov = (pfOk(sel.g1aDim) && pfOk(sel.g1cDim) && pfOk(sel.g1flare) && pfOk(sel.g2aDim) && pfOk(sel.g2cDim) && pfOk(sel.g2flare)) ? 'PASS' : 'FAIL';
 
   var spoolNumber = document.getElementById('spoolNumber').value.trim();
 
@@ -977,6 +1023,14 @@ function clearForm() {
   ['g1aDimPass','g1aDimFail','g1cDimPass','g1cDimFail','g1flarePass','g1flareFail','g2aDimPass','g2aDimFail','g2cDimPass','g2cDimFail','g2flarePass','g2flareFail','notesChkPass','notesChkFail'].forEach(function(id) {
     document.getElementById(id).className = 'pf-btn';
   });
+  // Reset plain end toggles
+  ['g1','g2'].forEach(function(g) {
+    plainEnd[g] = false;
+    var btn = document.getElementById(g + 'PlainEndBtn');
+    btn.style.background = '#fff'; btn.style.color = '#666'; btn.style.borderColor = 'var(--border)';
+    document.getElementById(g + 'PfRows').style.display = 'block';
+    document.getElementById(g + 'PlainEndLabel').style.display = 'none';
+  });
   // Re-apply unit badge if a unit has been selected for this session
   if (sessionSpoolUnit) {
     document.getElementById('spoolUnit').style.display = 'none';
@@ -1030,6 +1084,7 @@ function resetForm() {
 function badge(v) {
   if (!v) return '<span class="badge badge-na">N/A</span>';
   if (v==='pass' || v==='PASS') return '<span class="badge badge-pass">PASS</span>';
+  if (v==='plain_end') return '<span class="badge badge-na" style="background:#e0e0e0;color:#666;">P/E</span>';
   return '<span class="badge badge-fail">FAIL</span>';
 }
 
@@ -1178,7 +1233,7 @@ function saveInlineEdit(i) {
   var notes = document.getElementById('ie_notes').value.trim();
   if (notes && !inlineEdit.notesChk) { alert('You have notes — please set Observation Result pass/fail.'); return; }
 
-  var ov = (inlineEdit.g1aDim === 'pass' && inlineEdit.g1cDim === 'pass' && inlineEdit.g1flare === 'pass' && inlineEdit.g2aDim === 'pass' && inlineEdit.g2cDim === 'pass' && inlineEdit.g2flare === 'pass') ? 'PASS' : 'FAIL';
+  var ov = (pfOk(inlineEdit.g1aDim) && pfOk(inlineEdit.g1cDim) && pfOk(inlineEdit.g1flare) && pfOk(inlineEdit.g2aDim) && pfOk(inlineEdit.g2cDim) && pfOk(inlineEdit.g2flare)) ? 'PASS' : 'FAIL';
 
   entries[i] = {
     grooveNumber: entries[i].grooveNumber,
@@ -1210,7 +1265,7 @@ function setIEPF(field, val) {
     if (el) el.className = 'pf-btn' + (val === s.toLowerCase() ? ' active-' + s.toLowerCase() : '');
   });
   if (['g1aDim','g1cDim','g1flare','g2aDim','g2cDim','g2flare'].indexOf(field) !== -1) {
-    var ov = (inlineEdit.g1aDim === 'pass' && inlineEdit.g1cDim === 'pass' && inlineEdit.g1flare === 'pass' && inlineEdit.g2aDim === 'pass' && inlineEdit.g2cDim === 'pass' && inlineEdit.g2flare === 'pass') ? 'PASS' : 'FAIL';
+    var ov = (pfOk(inlineEdit.g1aDim) && pfOk(inlineEdit.g1cDim) && pfOk(inlineEdit.g1flare) && pfOk(inlineEdit.g2aDim) && pfOk(inlineEdit.g2cDim) && pfOk(inlineEdit.g2flare)) ? 'PASS' : 'FAIL';
     var el = document.getElementById('ie_overallResult');
     if (el) el.innerHTML = badge(ov);
   }
@@ -1366,13 +1421,19 @@ function buildEmailBody(s, passed) {
     lines.push('Spool Number:     ' + (e.spoolNumber||'—'));
     lines.push('Spool Length:     ' + (e.spoolLength||'—'));
     lines.push('--- Groove 1 ---');
-    lines.push('  A Dimension:    ' + (e.g1aDimension||'—').toUpperCase());
-    lines.push('  C Dimension:    ' + (e.g1cDimension||'—').toUpperCase());
-    lines.push('  Flare:          ' + (e.g1flare||'—').toUpperCase());
+    if (e.g1aDimension === 'plain_end') { lines.push('  Plain End'); }
+    else {
+      lines.push('  A Dimension:    ' + (e.g1aDimension||'—').toUpperCase());
+      lines.push('  C Dimension:    ' + (e.g1cDimension||'—').toUpperCase());
+      lines.push('  Flare:          ' + (e.g1flare||'—').toUpperCase());
+    }
     lines.push('--- Groove 2 ---');
-    lines.push('  A Dimension:    ' + (e.g2aDimension||'—').toUpperCase());
-    lines.push('  C Dimension:    ' + (e.g2cDimension||'—').toUpperCase());
-    lines.push('  Flare:          ' + (e.g2flare||'—').toUpperCase());
+    if (e.g2aDimension === 'plain_end') { lines.push('  Plain End'); }
+    else {
+      lines.push('  A Dimension:    ' + (e.g2aDimension||'—').toUpperCase());
+      lines.push('  C Dimension:    ' + (e.g2cDimension||'—').toUpperCase());
+      lines.push('  Flare:          ' + (e.g2flare||'—').toUpperCase());
+    }
     lines.push('Result:           ' + (e.overallResult||'—'));
     if (e.notes) {
       lines.push('Observations:     ' + e.notes + (e.notesResult ? ' [' + e.notesResult.toUpperCase() + ']' : ''));
