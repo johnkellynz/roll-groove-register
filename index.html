@@ -641,6 +641,13 @@ td .photo-thumb { width: 48px; height: 48px; }
                 <button class="pf-btn" id="g1flareFail" onclick="setPF('g1flare','fail')">&#10007; FAIL</button>
               </div>
             </div>
+            <div class="pf-row">
+              <span class="pf-label">Ovality</span>
+              <div class="pf-btns">
+                <button class="pf-btn" id="g1ovalPass" onclick="setPF('g1oval','pass')">&#10003; PASS</button>
+                <button class="pf-btn" id="g1ovalFail" onclick="setPF('g1oval','fail')">&#10007; FAIL</button>
+              </div>
+            </div>
           </div>
           <div id="g1PlainEndLabel" style="display:none;text-align:center;padding:18px 0;color:#aaa;font-weight:600;font-size:0.85rem;">Plain End — No Groove Required</div>
         </div>
@@ -670,6 +677,13 @@ td .photo-thumb { width: 48px; height: 48px; }
               <div class="pf-btns">
                 <button class="pf-btn" id="g2flarePass" onclick="setPF('g2flare','pass')">&#10003; PASS</button>
                 <button class="pf-btn" id="g2flareFail" onclick="setPF('g2flare','fail')">&#10007; FAIL</button>
+              </div>
+            </div>
+            <div class="pf-row">
+              <span class="pf-label">Ovality</span>
+              <div class="pf-btns">
+                <button class="pf-btn" id="g2ovalPass" onclick="setPF('g2oval','pass')">&#10003; PASS</button>
+                <button class="pf-btn" id="g2ovalFail" onclick="setPF('g2oval','fail')">&#10007; FAIL</button>
               </div>
             </div>
           </div>
@@ -739,9 +753,11 @@ td .photo-thumb { width: 48px; height: 48px; }
             <th>G1 A</th>
             <th>G1 C</th>
             <th>G1 Flare</th>
+            <th>G1 Oval</th>
             <th>G2 A</th>
             <th>G2 C</th>
             <th>G2 Flare</th>
+            <th>G2 Oval</th>
             <th>Result</th>
             <th>Notes</th>
             <th>Obs. Result</th>
@@ -749,7 +765,7 @@ td .photo-thumb { width: 48px; height: 48px; }
           </tr>
         </thead>
         <tbody id="entriesBody">
-          <tr class="empty-row"><td colspan="18">No groove entries yet — add your first entry above.</td></tr>
+          <tr class="empty-row"><td colspan="20">No groove entries yet — add your first entry above.</td></tr>
         </tbody>
       </table>
     </div>
@@ -781,7 +797,7 @@ td .photo-thumb { width: 48px; height: 48px; }
 <script>
 var entries = [];
 var counter = 0;
-var sel = { g1aDim: null, g1cDim: null, g1flare: null, g2aDim: null, g2cDim: null, g2flare: null, notesChk: null };
+var sel = { g1aDim: null, g1cDim: null, g1flare: null, g1oval: null, g2aDim: null, g2cDim: null, g2flare: null, g2oval: null, notesChk: null };
 var sessionSpoolUnit = 'mm';
 var pendingPhotos = [];
 
@@ -833,6 +849,7 @@ function togglePlainEnd(g) {
     sel[g + 'aDim'] = 'plain_end';
     sel[g + 'cDim'] = 'plain_end';
     sel[g + 'flare'] = 'plain_end';
+    sel[g + 'oval'] = 'plain_end';
   } else {
     btn.style.background = '#fff';
     btn.style.color = '#666';
@@ -842,7 +859,8 @@ function togglePlainEnd(g) {
     sel[g + 'aDim'] = null;
     sel[g + 'cDim'] = null;
     sel[g + 'flare'] = null;
-    [g + 'aDimPass', g + 'aDimFail', g + 'cDimPass', g + 'cDimFail', g + 'flarePass', g + 'flareFail'].forEach(function(id) {
+    sel[g + 'oval'] = null;
+    [g + 'aDimPass', g + 'aDimFail', g + 'cDimPass', g + 'cDimFail', g + 'flarePass', g + 'flareFail', g + 'ovalPass', g + 'ovalFail'].forEach(function(id) {
       document.getElementById(id).className = 'pf-btn';
     });
   }
@@ -872,9 +890,11 @@ function setPF(field, value) {
     g1aDim: ['g1aDimPass','g1aDimFail'],
     g1cDim: ['g1cDimPass','g1cDimFail'],
     g1flare: ['g1flarePass','g1flareFail'],
+    g1oval: ['g1ovalPass','g1ovalFail'],
     g2aDim: ['g2aDimPass','g2aDimFail'],
     g2cDim: ['g2cDimPass','g2cDimFail'],
     g2flare: ['g2flarePass','g2flareFail'],
+    g2oval: ['g2ovalPass','g2ovalFail'],
     notesChk: ['notesChkPass','notesChkFail']
   };
   var ids = map[field];
@@ -961,14 +981,17 @@ function addEntry() {
   if (!sel.g1aDim) { alert('Please set Groove 1 — A Dimension pass/fail.'); return; }
   if (!sel.g1cDim) { alert('Please set Groove 1 — C Dimension pass/fail.'); return; }
   if (!sel.g1flare) { alert('Please set Groove 1 — Flare Measurement pass/fail.'); return; }
+  if (!sel.g1oval) { alert('Please set Groove 1 — Ovality pass/fail.'); return; }
   if (!sel.g2aDim) { alert('Please set Groove 2 — A Dimension pass/fail.'); return; }
   if (!sel.g2cDim) { alert('Please set Groove 2 — C Dimension pass/fail.'); return; }
   if (!sel.g2flare) { alert('Please set Groove 2 — Flare Measurement pass/fail.'); return; }
+  if (!sel.g2oval) { alert('Please set Groove 2 — Ovality pass/fail.'); return; }
 
   var notes = document.getElementById('notesInput').value.trim();
   if (notes && !sel.notesChk) { alert('You have notes — please set Observation Result pass/fail.'); return; }
 
-  var ov = (pfOk(sel.g1aDim) && pfOk(sel.g1cDim) && pfOk(sel.g1flare) && pfOk(sel.g2aDim) && pfOk(sel.g2cDim) && pfOk(sel.g2flare)) ? 'PASS' : 'FAIL';
+  var notesOk = !notes || sel.notesChk !== 'fail';
+  var ov = (pfOk(sel.g1aDim) && pfOk(sel.g1cDim) && pfOk(sel.g1flare) && pfOk(sel.g1oval) && pfOk(sel.g2aDim) && pfOk(sel.g2cDim) && pfOk(sel.g2flare) && pfOk(sel.g2oval) && notesOk) ? 'PASS' : 'FAIL';
 
   var spoolNumber = document.getElementById('spoolNumber').value.trim();
 
@@ -988,9 +1011,11 @@ function addEntry() {
     g1aDimension: sel.g1aDim,
     g1cDimension: sel.g1cDim,
     g1flare: sel.g1flare,
+    g1oval: sel.g1oval,
     g2aDimension: sel.g2aDim,
     g2cDimension: sel.g2cDim,
     g2flare: sel.g2flare,
+    g2oval: sel.g2oval,
     overallResult: ov,
     notes: notes,
     notesResult: notes ? sel.notesChk : null,
@@ -1019,8 +1044,8 @@ function clearForm() {
   var photoBtns = document.getElementById('photoBtns');
   if (photoBtns) photoBtns.style.display = 'flex';
 
-  sel = { g1aDim: null, g1cDim: null, g1flare: null, g2aDim: null, g2cDim: null, g2flare: null, notesChk: null };
-  ['g1aDimPass','g1aDimFail','g1cDimPass','g1cDimFail','g1flarePass','g1flareFail','g2aDimPass','g2aDimFail','g2cDimPass','g2cDimFail','g2flarePass','g2flareFail','notesChkPass','notesChkFail'].forEach(function(id) {
+  sel = { g1aDim: null, g1cDim: null, g1flare: null, g1oval: null, g2aDim: null, g2cDim: null, g2flare: null, g2oval: null, notesChk: null };
+  ['g1aDimPass','g1aDimFail','g1cDimPass','g1cDimFail','g1flarePass','g1flareFail','g1ovalPass','g1ovalFail','g2aDimPass','g2aDimFail','g2cDimPass','g2cDimFail','g2flarePass','g2flareFail','g2ovalPass','g2ovalFail','notesChkPass','notesChkFail'].forEach(function(id) {
     document.getElementById(id).className = 'pf-btn';
   });
   // Reset plain end toggles
@@ -1093,7 +1118,7 @@ function renderTable() {
   var bar = document.getElementById('summaryBar');
 
   if (entries.length === 0) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="18" style="text-align:center;">No groove entries yet — add your first entry above.</td></tr>';
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="20" style="text-align:center;">No groove entries yet — add your first entry above.</td></tr>';
     bar.style.display = 'none';
     return;
   }
@@ -1118,9 +1143,11 @@ function renderTable() {
       '<td>' + badge(e.g1aDimension) + '</td>' +
       '<td>' + badge(e.g1cDimension) + '</td>' +
       '<td>' + badge(e.g1flare) + '</td>' +
+      '<td>' + badge(e.g1oval) + '</td>' +
       '<td>' + badge(e.g2aDimension) + '</td>' +
       '<td>' + badge(e.g2cDimension) + '</td>' +
       '<td>' + badge(e.g2flare) + '</td>' +
+      '<td>' + badge(e.g2oval) + '</td>' +
       '<td>' + badge(e.overallResult) + '</td>' +
       '<td style="max-width:160px;word-break:break-word;">' + (e.notes||'') + '</td>' +
       '<td>' + badge(e.notesResult) + '</td>' +
@@ -1186,9 +1213,11 @@ function editEntry(i) {
     g1aDim: e.g1aDimension ? e.g1aDimension.toLowerCase() : null,
     g1cDim: e.g1cDimension ? e.g1cDimension.toLowerCase() : null,
     g1flare: e.g1flare ? e.g1flare.toLowerCase() : null,
+    g1oval: e.g1oval ? e.g1oval.toLowerCase() : null,
     g2aDim: e.g2aDimension ? e.g2aDimension.toLowerCase() : null,
     g2cDim: e.g2cDimension ? e.g2cDimension.toLowerCase() : null,
     g2flare: e.g2flare ? e.g2flare.toLowerCase() : null,
+    g2oval: e.g2oval ? e.g2oval.toLowerCase() : null,
     notesChk: e.notesResult ? e.notesResult.toLowerCase() : null
   };
   editingIndex = i;
@@ -1226,14 +1255,16 @@ function saveInlineEdit(i) {
   if (!inlineEdit.g1aDim) { alert('Please set Groove 1 — A Dimension pass/fail.'); return; }
   if (!inlineEdit.g1cDim) { alert('Please set Groove 1 — C Dimension pass/fail.'); return; }
   if (!inlineEdit.g1flare) { alert('Please set Groove 1 — Flare Measurement pass/fail.'); return; }
+  if (!inlineEdit.g1oval) { alert('Please set Groove 1 — Ovality pass/fail.'); return; }
   if (!inlineEdit.g2aDim) { alert('Please set Groove 2 — A Dimension pass/fail.'); return; }
   if (!inlineEdit.g2cDim) { alert('Please set Groove 2 — C Dimension pass/fail.'); return; }
   if (!inlineEdit.g2flare) { alert('Please set Groove 2 — Flare Measurement pass/fail.'); return; }
+  if (!inlineEdit.g2oval) { alert('Please set Groove 2 — Ovality pass/fail.'); return; }
 
   var notes = document.getElementById('ie_notes').value.trim();
   if (notes && !inlineEdit.notesChk) { alert('You have notes — please set Observation Result pass/fail.'); return; }
 
-  var ov = (pfOk(inlineEdit.g1aDim) && pfOk(inlineEdit.g1cDim) && pfOk(inlineEdit.g1flare) && pfOk(inlineEdit.g2aDim) && pfOk(inlineEdit.g2cDim) && pfOk(inlineEdit.g2flare)) ? 'PASS' : 'FAIL';
+  var ov = (pfOk(inlineEdit.g1aDim) && pfOk(inlineEdit.g1cDim) && pfOk(inlineEdit.g1flare) && pfOk(inlineEdit.g1oval) && pfOk(inlineEdit.g2aDim) && pfOk(inlineEdit.g2cDim) && pfOk(inlineEdit.g2flare) && pfOk(inlineEdit.g2oval)) ? 'PASS' : 'FAIL';
 
   entries[i] = {
     grooveNumber: entries[i].grooveNumber,
@@ -1246,9 +1277,11 @@ function saveInlineEdit(i) {
     g1aDimension: inlineEdit.g1aDim,
     g1cDimension: inlineEdit.g1cDim,
     g1flare: inlineEdit.g1flare,
+    g1oval: inlineEdit.g1oval,
     g2aDimension: inlineEdit.g2aDim,
     g2cDimension: inlineEdit.g2cDim,
     g2flare: inlineEdit.g2flare,
+    g2oval: inlineEdit.g2oval,
     overallResult: ov,
     notes: notes,
     notesResult: notes ? inlineEdit.notesChk : null,
@@ -1264,8 +1297,8 @@ function setIEPF(field, val) {
     var el = document.getElementById('ie_' + field + s);
     if (el) el.className = 'pf-btn' + (val === s.toLowerCase() ? ' active-' + s.toLowerCase() : '');
   });
-  if (['g1aDim','g1cDim','g1flare','g2aDim','g2cDim','g2flare'].indexOf(field) !== -1) {
-    var ov = (pfOk(inlineEdit.g1aDim) && pfOk(inlineEdit.g1cDim) && pfOk(inlineEdit.g1flare) && pfOk(inlineEdit.g2aDim) && pfOk(inlineEdit.g2cDim) && pfOk(inlineEdit.g2flare)) ? 'PASS' : 'FAIL';
+  if (['g1aDim','g1cDim','g1flare','g1oval','g2aDim','g2cDim','g2flare','g2oval'].indexOf(field) !== -1) {
+    var ov = (pfOk(inlineEdit.g1aDim) && pfOk(inlineEdit.g1cDim) && pfOk(inlineEdit.g1flare) && pfOk(inlineEdit.g1oval) && pfOk(inlineEdit.g2aDim) && pfOk(inlineEdit.g2cDim) && pfOk(inlineEdit.g2flare) && pfOk(inlineEdit.g2oval)) ? 'PASS' : 'FAIL';
     var el = document.getElementById('ie_overallResult');
     if (el) el.innerHTML = badge(ov);
   }
@@ -1336,9 +1369,11 @@ function renderEditRow(e, i) {
     '<td style="vertical-align:top;">' + pfBtns('g1aDim', inlineEdit.g1aDim) + '</td>' +
     '<td style="vertical-align:top;">' + pfBtns('g1cDim', inlineEdit.g1cDim) + '</td>' +
     '<td style="vertical-align:top;">' + pfBtns('g1flare', inlineEdit.g1flare) + '</td>' +
+    '<td style="vertical-align:top;">' + pfBtns('g1oval', inlineEdit.g1oval) + '</td>' +
     '<td style="vertical-align:top;">' + pfBtns('g2aDim', inlineEdit.g2aDim) + '</td>' +
     '<td style="vertical-align:top;">' + pfBtns('g2cDim', inlineEdit.g2cDim) + '</td>' +
     '<td style="vertical-align:top;">' + pfBtns('g2flare', inlineEdit.g2flare) + '</td>' +
+    '<td style="vertical-align:top;">' + pfBtns('g2oval', inlineEdit.g2oval) + '</td>' +
     '<td id="ie_overallResult" style="vertical-align:top;padding-top:6px;">' + badge(ov) + '</td>' +
     '<td style="vertical-align:top;min-width:130px;"><input type="text" id="ie_notes" value="' + (e.notes||'').replace(/"/g,'&quot;') + '" placeholder="Notes..." oninput="onIENotesInput()" style="' + s + '">' + notesResultPf + '</td>' +
     '<td style="vertical-align:top;padding-top:6px;">' + badge(e.notesResult) + '</td>' +
@@ -1426,6 +1461,7 @@ function buildEmailBody(s, passed) {
       lines.push('  A Dimension:    ' + (e.g1aDimension||'—').toUpperCase());
       lines.push('  C Dimension:    ' + (e.g1cDimension||'—').toUpperCase());
       lines.push('  Flare:          ' + (e.g1flare||'—').toUpperCase());
+      lines.push('  Ovality:        ' + (e.g1oval||'—').toUpperCase());
     }
     lines.push('--- Groove 2 ---');
     if (e.g2aDimension === 'plain_end') { lines.push('  Plain End'); }
@@ -1433,6 +1469,7 @@ function buildEmailBody(s, passed) {
       lines.push('  A Dimension:    ' + (e.g2aDimension||'—').toUpperCase());
       lines.push('  C Dimension:    ' + (e.g2cDimension||'—').toUpperCase());
       lines.push('  Flare:          ' + (e.g2flare||'—').toUpperCase());
+      lines.push('  Ovality:        ' + (e.g2oval||'—').toUpperCase());
     }
     lines.push('Result:           ' + (e.overallResult||'—'));
     if (e.notes) {
@@ -1610,9 +1647,11 @@ function buildPDF() {
       (e.g1aDimension || '').toUpperCase(),
       (e.g1cDimension || '').toUpperCase(),
       (e.g1flare || '').toUpperCase(),
+      (e.g1oval || '').toUpperCase(),
       (e.g2aDimension || '').toUpperCase(),
       (e.g2cDimension || '').toUpperCase(),
       (e.g2flare || '').toUpperCase(),
+      (e.g2oval || '').toUpperCase(),
       (e.overallResult || '').toUpperCase(),
       e.notes || '',
       e.photos && e.photos.length ? e.photos.length + (e.photos.length === 1 ? ' photo' : ' photos') : '—'
@@ -1622,7 +1661,7 @@ function buildPDF() {
   doc.autoTable({
     startY: y,
     margin: { left: margin, right: margin },
-    head: [['Groove #', 'Tool', 'Pipe Type', 'Type', 'Pipe Size', 'Spool #', 'Spool Len', 'G1 A', 'G1 C', 'G1 Flare', 'G2 A', 'G2 C', 'G2 Flare', 'Result', 'Observations', 'Photos']],
+    head: [['Groove #', 'Tool', 'Pipe Type', 'Type', 'Pipe Size', 'Spool #', 'Spool Len', 'G1 A', 'G1 C', 'G1 Flare', 'G1 Oval', 'G2 A', 'G2 C', 'G2 Flare', 'G2 Oval', 'Result', 'Observations', 'Photos']],
     body: tableBody,
     theme: 'grid',
     headStyles: {
@@ -1786,7 +1825,7 @@ function downloadPDF() {
 function downloadCSV() {
   if (!validateSession()) return;
   if (entries.length === 0) { alert('No groove entries to export.'); return; }
-  var headers = ['Groove #','Roll Groove Tool','Groove Type','Pipe Type','Pipe Size','Spool Number','Spool Length','G1 A Dim','G1 C Dim','G1 Flare','G2 A Dim','G2 C Dim','G2 Flare','Observations','Obs. Result','Overall Result'];
+  var headers = ['Groove #','Roll Groove Tool','Groove Type','Pipe Type','Pipe Size','Spool Number','Spool Length','G1 A Dim','G1 C Dim','G1 Flare','G1 Ovality','G2 A Dim','G2 C Dim','G2 Flare','G2 Ovality','Observations','Obs. Result','Overall Result'];
   var rows = entries.map(function(e) {
     return [
       e.grooveNumber,
@@ -1799,9 +1838,11 @@ function downloadCSV() {
       e.g1aDimension || '',
       e.g1cDimension || '',
       e.g1flare || '',
+      e.g1oval || '',
       e.g2aDimension || '',
       e.g2cDimension || '',
       e.g2flare || '',
+      e.g2oval || '',
       (e.notes || '').replace(/"/g, '""'),
       e.notesResult || '',
       e.overallResult || ''
